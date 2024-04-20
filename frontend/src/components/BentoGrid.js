@@ -1,8 +1,8 @@
 import React from 'react';
-import useBoxState from '../hooks/useBoxState';
+import useBoxes from '../hooks/useBoxState';
 
 const BentoGrid = () => {
-    const { boxes } = useBoxState();
+    const { boxes } = useBoxes();
 
     return (
         <div className="container mx-auto mt-8">
@@ -10,9 +10,8 @@ const BentoGrid = () => {
             <div className="grid grid-cols-2 gap-4 mt-4">
                 {boxes.map(box => (
                     <div key={box.id} className="bg-gray-200 p-4">
-                        <div className="mt-2">
-                            <strong>{box.text1}</strong> - {box.text2}
-                        </div>
+                        <h3 className="text-lg font-semibold">{box.title}</h3>
+                        <p>{box.description}</p>
                     </div>
                 ))}
             </div>
