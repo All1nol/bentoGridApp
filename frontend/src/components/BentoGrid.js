@@ -11,7 +11,7 @@ const BentoGrid = () => {
                 {boxes.map(box => (
                     <div key={box.id} className="bg-gray-200 p-4">
                         <h3 className="text-lg font-semibold">{box.title}</h3>
-                        <p>{box.description}</p>
+                        <p>{box.title2}</p>
                     </div>
                 ))}
             </div>

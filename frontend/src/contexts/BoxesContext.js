@@ -1,8 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-
-const BoxesContext = createContext();
-
-export const useBoxes = () => useContext(BoxesContext);
+import React, { useState } from 'react';
+import { BoxesContext } from '../hooks/useBoxState';
 
 export const BoxesProvider = ({ children }) => {
     const [boxes, setBoxes] = useState([

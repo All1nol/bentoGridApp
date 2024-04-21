@@ -6,7 +6,7 @@ const Sidebar = () => {
     const [selectedBoxId, setSelectedBoxId] = useState(null);
 
     const handleBoxButtonClick = (id) => {
-        setSelectedBoxId(id); // Set the selected box ID when a button is clicked
+        setSelectedBoxId(id); 
     };
 
     const handleTitleInputChange = (e) => {
@@ -14,7 +14,7 @@ const Sidebar = () => {
             const updatedBoxes = boxes.map(box =>
                 box.id === selectedBoxId ? { ...box, title: e.target.value } : box
             );
-            setBoxes(updatedBoxes); // Update the selected box's title immediately
+            setBoxes(updatedBoxes); 
         }
     };
 
@@ -23,7 +23,7 @@ const Sidebar = () => {
             const updatedBoxes = boxes.map(box =>
                 box.id === selectedBoxId ? { ...box, description: e.target.value } : box
             );
-            setBoxes(updatedBoxes); // Update the selected box's description immediately
+            setBoxes(updatedBoxes);
         }
     };
 
@@ -44,13 +44,12 @@ const Sidebar = () => {
                         className="w-full border border-gray-400 rounded-md p-2 mb-2"
                         placeholder="Title"
                     />
-                    <textarea
-                    type="text"
+                    <input
                         value={boxes.find(box => box.id === selectedBoxId)?.description || ''}
                         onChange={handleDescriptionInputChange}
                         className="w-full border border-gray-400 rounded-md p-2 mb-2"
                         placeholder="Description"
-                    ></textarea>
+                    ></input>
                 </div>
             )}
         </div>
