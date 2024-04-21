@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
+import BentoGrid from './BentoGrid'; 
 import useBoxes from '../hooks/useBoxState';
 
 const Sidebar = () => {
-    const { boxes, setBoxes } = useBoxes();
+    const { boxes, setBoxes, boxFontSizes, setBoxFontSizes } = useBoxes();
     const [selectedBoxId, setSelectedBoxId] = useState(null);
+    const [titleFontSize, setTitleFontSize] = useState(16);
+    const [descriptionFontSize, setDescriptionFontSize] = useState(14); 
+    const [titleInputValue, setTitleInputValue] = useState(''); 
+    const [descriptionInputValue, setDescriptionInputValue] = useState(''); 
 
     const handleBoxButtonClick = (id) => {
-        setSelectedBoxId(id); 
+        setSelectedBoxId(id);
+
+        const selectedBox = boxes.find(box => box.id === id);
+        if (selectedBox) {
+            setTitleInputValue(selectedBox.title || '');
+            setDescriptionInputValue(selectedBox.description || '');
+        } else {
+            setTitleInputValue('');
+            setDescriptionInputValue('');
+        }
     };
 
     const handleTitleInputChange = (e) => {
+        setTitleInputValue(e.target.value);
         if (selectedBoxId !== null) {
             const updatedBoxes = boxes.map(box =>
                 box.id === selectedBoxId ? { ...box, title: e.target.value } : box
@@ -19,12 +34,25 @@ const Sidebar = () => {
     };
 
     const handleDescriptionInputChange = (e) => {
+        setDescriptionInputValue(e.target.value);
         if (selectedBoxId !== null) {
             const updatedBoxes = boxes.map(box =>
                 box.id === selectedBoxId ? { ...box, description: e.target.value } : box
             );
             setBoxes(updatedBoxes);
         }
+    };
+
+    const handleTitleFontSizeChange = (e) => {
+        const newFontSizes ={...boxFontSizes};
+        newFontSizes[selectedBoxId].titleFontSize= Number(e.target.value);
+        setBoxFontSizes(newFontSizes)
+    };
+
+    const handleDescriptionFontSizeChange = (e) => {
+        const newFontSizes = { ...boxFontSizes };
+        newFontSizes[selectedBoxId].descriptionFontSize = Number(e.target.value);
+        setBoxFontSizes(newFontSizes);
     };
 
     return (
@@ -39,17 +67,46 @@ const Sidebar = () => {
                 <div className="mt-4">
                     <input
                         type="text"
-                        value={boxes.find(box => box.id === selectedBoxId)?.title || ''}
+                        value={titleInputValue}
                         onChange={handleTitleInputChange}
                         className="w-full border border-gray-400 rounded-md p-2 mb-2"
                         placeholder="Title"
                     />
                     <input
-                        value={boxes.find(box => box.id === selectedBoxId)?.description || ''}
+                        type="text"
+                        value={descriptionInputValue}
                         onChange={handleDescriptionInputChange}
                         className="w-full border border-gray-400 rounded-md p-2 mb-2"
                         placeholder="Description"
-                    ></input>
+                    />
+                    <div className="mt-2">
+                        <label htmlFor="titleFontSize">Title Font Size: {titleFontSize}px</label>
+                        <input
+                            type="range"
+                            id="titleFontSize"
+                            min="10"
+                            max="30"
+                            value={titleFontSize}
+                            onChange={handleTitleFontSizeChange} 
+                        />
+                    </div>
+                    <div className="mt-2">
+                        <label htmlFor="descriptionFontSize">Description Font Size: {descriptionFontSize}px</label>
+                        <input
+                            type="range"
+                            id="descriptionFontSize"
+                            min="10"
+                            max="30"
+                            value={descriptionFontSize}
+                            onChange={handleDescriptionFontSizeChange} 
+                        />
+                    </div>
+                    <BentoGrid
+                        boxes={boxes}
+                        titleFontSize={titleFontSize}
+                        descriptionFontSize={descriptionFontSize}
+                        boxFontSizes={boxFontSizes} // Add the missing prop
+                    />
                 </div>
             )}
         </div>

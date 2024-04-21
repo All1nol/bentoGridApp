@@ -1,20 +1,18 @@
 import React from 'react';
-import useBoxes from '../hooks/useBoxState';
 
-const BentoGrid = () => {
-    const { boxes } = useBoxes();
-
+const BentoGrid = ({ boxes, titleFontSize, descriptionFontSize, boxFontSizes }) => {
     return (
-        <div className="container mx-auto mt-8">
-            <h2 className="text-2xl font-bold">Bento Grids</h2>
-            <div className="grid grid-cols-2 gap-4 mt-4">
-                {boxes.map(box => (
-                    <div key={box.id} className="bg-gray-200 p-4">
-                        <h3 className="text-lg font-semibold">{box.title}</h3>
-                        <p>{box.title2}</p>
+        <div className="bento-grid">
+            {boxes && boxes.length > 0 ? (
+                boxes.map(box => (
+                    <div key={box.id} style={{ fontSize: boxFontSizes && boxFontSizes[box.id]?.titleFontSize }}>
+                        <h2>{box.title}</h2>
+                        <p style={{ fontSize: boxFontSizes && boxFontSizes[box.id]?.descriptionFontSize }}>{box.description}</p>
                     </div>
-                ))}
-            </div>
+                ))
+            ) : (
+                <p>No boxes to display</p>
+            )}
         </div>
     );
 };
