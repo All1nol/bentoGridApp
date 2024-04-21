@@ -5,8 +5,6 @@ import useBoxes from '../hooks/useBoxState';
 const Sidebar = () => {
     const { boxes, setBoxes, boxFontSizes, setBoxFontSizes } = useBoxes();
     const [selectedBoxId, setSelectedBoxId] = useState(null);
-    const [titleFontSize, setTitleFontSize] = useState(16);
-    const [descriptionFontSize, setDescriptionFontSize] = useState(14); 
     const [titleInputValue, setTitleInputValue] = useState(''); 
     const [descriptionInputValue, setDescriptionInputValue] = useState(''); 
 
@@ -44,15 +42,21 @@ const Sidebar = () => {
     };
 
     const handleTitleFontSizeChange = (e) => {
-        const newFontSizes ={...boxFontSizes};
-        newFontSizes[selectedBoxId].titleFontSize= Number(e.target.value);
-        setBoxFontSizes(newFontSizes)
+        setTitleInputValue(e.target.value);
+        if (selectedBoxId !== null) {
+            const newFontSizes = { ...boxFontSizes };
+            newFontSizes[selectedBoxId].titleFontSize = Number(e.target.value);
+            setBoxFontSizes(newFontSizes);
+        }
     };
 
     const handleDescriptionFontSizeChange = (e) => {
-        const newFontSizes = { ...boxFontSizes };
-        newFontSizes[selectedBoxId].descriptionFontSize = Number(e.target.value);
-        setBoxFontSizes(newFontSizes);
+        setDescriptionInputValue(e.target.value);
+        if (selectedBoxId !== null) {
+            const newFontSizes = { ...boxFontSizes };
+            newFontSizes[selectedBoxId].descriptionFontSize = Number(e.target.value);
+            setBoxFontSizes(newFontSizes);
+        }
     };
 
     return (
@@ -80,32 +84,32 @@ const Sidebar = () => {
                         placeholder="Description"
                     />
                     <div className="mt-2">
-                        <label htmlFor="titleFontSize">Title Font Size: {titleFontSize}px</label>
+                        <label htmlFor="titleFontSize">Title Font Size: {boxFontSizes[selectedBoxId].titleFontSize}px</label>
                         <input
                             type="range"
                             id="titleFontSize"
                             min="10"
                             max="30"
-                            value={titleFontSize}
+                            value={boxFontSizes[selectedBoxId].titleFontSize}
                             onChange={handleTitleFontSizeChange} 
                         />
                     </div>
                     <div className="mt-2">
-                        <label htmlFor="descriptionFontSize">Description Font Size: {descriptionFontSize}px</label>
+                        <label htmlFor="descriptionFontSize">Description Font Size: {boxFontSizes[selectedBoxId].descriptionFontSize}px</label>
                         <input
                             type="range"
                             id="descriptionFontSize"
                             min="10"
                             max="30"
-                            value={descriptionFontSize}
+                            value={boxFontSizes[selectedBoxId].descriptionFontSize}
                             onChange={handleDescriptionFontSizeChange} 
                         />
                     </div>
                     <BentoGrid
                         boxes={boxes}
-                        titleFontSize={titleFontSize}
-                        descriptionFontSize={descriptionFontSize}
-                        boxFontSizes={boxFontSizes} // Add the missing prop
+                        titleFontSize={boxFontSizes[selectedBoxId].titleFontSize}
+                        descriptionFontSize={boxFontSizes[selectedBoxId].descriptionFontSize}
+                        boxFontSizes={boxFontSizes} 
                     />
                 </div>
             )}
