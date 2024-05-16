@@ -2,16 +2,24 @@ import React from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import BentoGrid from './components/BentoGrid';
-import { BoxesProvider } from './contexts/BoxesContext';
+import { useBoxes, BoxesProvider } from './contexts/BoxesContext';
+// import './App.css';
+
+const AppContent = () => {
+    const { boxes, boxFontSizes } = useBoxes();
+    return <BentoGrid boxes={boxes} boxFontSizes={boxFontSizes} />;
+};
 
 const App = () => {
     return (
         <BoxesProvider>
-            <div>
+            <div className="app-container">
                 <Header />
-                <div className="flex mt-8">
+                <div className="main-content">
                     <Sidebar />
-                    <BentoGrid />
+                    <div className="bento-grid-container">
+                        <AppContent />
+                    </div>
                 </div>
             </div>
         </BoxesProvider>
