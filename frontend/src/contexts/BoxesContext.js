@@ -1,3 +1,4 @@
+// contexts/BoxesContext.js
 import React, { useState, createContext, useContext } from 'react';
 
 export const BoxesContext = createContext();

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useBoxes } from '../contexts/BoxesContext';
-// import './Sidebar.css';
 
 const Sidebar = () => {
     const { boxes, setBoxes, boxFontSizes, setBoxFontSizes } = useBoxes();
     const [selectedBoxId, setSelectedBoxId] = useState(1);
     const [titleInputValue, setTitleInputValue] = useState(boxes[0].text1);
     const [descriptionInputValue, setDescriptionInputValue] = useState(boxes[0].text2);
+    const [selectBox, setSelectBox] = useState(false);
 
     const handleBoxButtonClick = (id) => {
         setSelectedBoxId(id);
@@ -53,6 +53,17 @@ const Sidebar = () => {
         setBoxFontSizes(newFontSizes);
     };
 
+    const handleBoxClick = () => {
+        setSelectBox(true);
+
+        const inputToFocus = document.getElementById('inputToFocus');
+        if (inputToFocus) {
+            inputToFocus.focus();
+        }
+    }
+
+   
+    
     return (
         <div className="sidebar">
             <div className="tabs">
@@ -80,6 +91,7 @@ const Sidebar = () => {
                     <div className="control-group">
                         <label>Title size</label>
                         <input
+                            id="titleInput"
                             type="range"
                             min="10"
                             max="30"
@@ -90,6 +102,7 @@ const Sidebar = () => {
                     <div className="control-group">
                         <label>Description content</label>
                         <input
+                            id="descriptionInput"
                             type="text"
                             value={descriptionInputValue}
                             onChange={handleDescriptionInputChange}

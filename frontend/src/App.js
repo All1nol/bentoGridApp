@@ -3,11 +3,22 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import BentoGrid from './components/BentoGrid';
 import { useBoxes, BoxesProvider } from './contexts/BoxesContext';
-// import './App.css';
+import './styles/App.css';
 
 const AppContent = () => {
     const { boxes, boxFontSizes } = useBoxes();
-    return <BentoGrid boxes={boxes} boxFontSizes={boxFontSizes} />;
+
+    const handleBoxClick = (id) => {
+        const clickedBox = boxes.find((box) => box.id === id);
+    
+        if (clickedBox) {
+            console.log(`Box ${clickedBox.id} clicked: ${clickedBox.text1}`);
+        } else {
+            console.log(`Box with id ${id} not found.`);
+        }
+    };
+    
+    return <BentoGrid boxes={boxes} boxFontSizes={boxFontSizes} handleBoxClick={handleBoxClick}/>;
 };
 
 const App = () => {
