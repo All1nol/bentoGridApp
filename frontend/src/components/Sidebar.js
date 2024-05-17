@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useBoxes } from '../contexts/BoxesContext';
 
 const Sidebar = () => {
-    const { boxes, setBoxes, boxFontSizes, setBoxFontSizes } = useBoxes();
-    const [selectedBoxId, setSelectedBoxId] = useState(1);
+    const { boxes, setBoxes, boxFontSizes, setBoxFontSizes, selectedBoxId, setSelectedBoxId} = useBoxes();
     const [titleInputValue, setTitleInputValue] = useState(boxes[0].text1);
     const [descriptionInputValue, setDescriptionInputValue] = useState(boxes[0].text2);
-    const [selectBox, setSelectBox] = useState(false);
 
-    const handleBoxButtonClick = (id) => {
-        setSelectedBoxId(id);
-
-        const selectedBox = boxes.find(box => box.id === id);
+    useEffect(() => {
+        const selectedBox = boxes.find(box => box.id === selectedBoxId);
         if (selectedBox) {
             setTitleInputValue(selectedBox.text1 || '');
             setDescriptionInputValue(selectedBox.text2 || '');
-        } else {
-            setTitleInputValue('');
-            setDescriptionInputValue('');
         }
+    }, [selectedBoxId, boxes]);
+
+    // Automatically focus on the inputs when selectedBoxId changes
+    useEffect(() => {
+        const titleInput = document.getElementById('titleInput');
+        const descriptionInput = document.getElementById('descriptionInput');
+
+        if (titleInput) {
+            titleInput.focus();
+        }
+
+        if (descriptionInput) {
+            descriptionInput.focus();
+        }
+    }, [selectedBoxId]);
+
+    const handleBoxButtonClick = (id) => {
+        setSelectedBoxId(id);
     };
+
 
     const handleTitleInputChange = (e) => {
         setTitleInputValue(e.target.value);
@@ -53,14 +65,7 @@ const Sidebar = () => {
         setBoxFontSizes(newFontSizes);
     };
 
-    const handleBoxClick = () => {
-        setSelectBox(true);
-
-        const inputToFocus = document.getElementById('inputToFocus');
-        if (inputToFocus) {
-            inputToFocus.focus();
-        }
-    }
+  
 
    
     

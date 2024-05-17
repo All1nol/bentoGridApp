@@ -6,18 +6,7 @@ import { useBoxes, BoxesProvider } from './contexts/BoxesContext';
 import './styles/App.css';
 
 const AppContent = () => {
-    const { boxes, boxFontSizes } = useBoxes();
-
-    const handleBoxClick = (id) => {
-        const clickedBox = boxes.find((box) => box.id === id);
-    
-        if (clickedBox) {
-            console.log(`Box ${clickedBox.id} clicked: ${clickedBox.text1}`);
-        } else {
-            console.log(`Box with id ${id} not found.`);
-        }
-    };
-    
+    const { boxes, boxFontSizes, handleBoxClick } = useBoxes();
     return <BentoGrid boxes={boxes} boxFontSizes={boxFontSizes} handleBoxClick={handleBoxClick}/>;
 };
 

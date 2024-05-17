@@ -1,4 +1,3 @@
-// contexts/BoxesContext.js
 import React, { useState, createContext, useContext } from 'react';
 
 export const BoxesContext = createContext();
@@ -20,8 +19,14 @@ export const BoxesProvider = ({ children }) => {
         4: { titleFontSize: 16, descriptionFontSize: 14 },
     });
 
+    const [selectedBoxId, setSelectedBoxId] = useState(1);
+
+    const handleBoxClick = (id) => {
+        setSelectedBoxId(id);
+    };
+
     return (
-        <BoxesContext.Provider value={{ boxes, setBoxes, boxFontSizes, setBoxFontSizes }}>
+        <BoxesContext.Provider value={{ boxes, setBoxes, boxFontSizes, setBoxFontSizes, selectedBoxId, setSelectedBoxId, handleBoxClick }}>
             {children}
         </BoxesContext.Provider>
     );
