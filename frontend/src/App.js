@@ -19,6 +19,7 @@ const App = () => {
                     <Sidebar />
                     <div className="bento-grid-container">
                         <AppContent />
+                        "FAsfs"
                     </div>
                 </div>
             </div>
