@@ -14,7 +14,6 @@ const Sidebar = () => {
         }
     }, [selectedBoxId, boxes]);
 
-    // Automatically focus on the inputs when selectedBoxId changes
     useEffect(() => {
         const titleInput = document.getElementById('titleInput');
         const descriptionInput = document.getElementById('descriptionInput');
@@ -66,12 +65,9 @@ const Sidebar = () => {
     };
 
   
-
-   
-    
     return (
-        <div className="sidebar">
-            <div className="tabs">
+        <div className="sidebar p-4 bg-white border-r border-gray-200 w-72"  >
+            <div className="tabs flex  flex-col gap-2 mb-4">
                 {boxes.map((box) => (
                     <button
                         key={box.id}
@@ -83,18 +79,18 @@ const Sidebar = () => {
                 ))}
             </div>
             {selectedBoxId !== null && (
-                <div className="controls">
+                <div className="controls space-y-4">
                     <div className="control-group">
-                        <label>Title content</label>
+                        <label  className="block text-sm font-medium text-gray-700" >Title content</label>
                         <input
                             type="text"
                             value={titleInputValue}
                             onChange={handleTitleInputChange}
-                            className="input"
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         />
                     </div>
                     <div className="control-group">
-                        <label>Title size</label>
+                        <label className="block text-sm font-medium text-gray-700">Title size</label>
                         <input
                             id="titleInput"
                             type="range"
@@ -102,26 +98,29 @@ const Sidebar = () => {
                             max="30"
                             value={boxFontSizes[selectedBoxId].titleFontSize}
                             onChange={handleTitleFontSizeChange}
+                            className="mt-1 w-full"
                         />
                     </div>
                     <div className="control-group">
-                        <label>Description content</label>
+                        <label className="block text-sm font-medium text-gray-700">Description content</label>
                         <input
                             id="descriptionInput"
                             type="text"
                             value={descriptionInputValue}
                             onChange={handleDescriptionInputChange}
-                            className="input"
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+
                         />
                     </div>
                     <div className="control-group">
-                        <label>Description size</label>
+                        <label className="block text-sm font-medium text-gray-700">Description size</label>
                         <input
                             type="range"
                             min="10"
                             max="30"
                             value={boxFontSizes[selectedBoxId].descriptionFontSize}
                             onChange={handleDescriptionFontSizeChange}
+                            className="mt-1 w-full"
                         />
                     </div>
                 </div>
