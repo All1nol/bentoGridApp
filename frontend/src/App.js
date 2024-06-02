@@ -12,11 +12,11 @@ const AppContent = () => {
 const App = () => {
     return (
         <BoxesProvider>
-            <div className="app-container flex flex-col h-screen">
+            <div className="flex flex-col min-h-screen bg-gray-900 text-black">
                 <Header />
-                <div className="main-content flex flex-1 overflow-hidden">
+                <div className="flex flex-grow flex-col lg:flex-row">
                     <Sidebar />
-                    <div className="bento-grid-container flex-1 p-4 overflow-y-auto">
+                    <div className="flex-grow p-4">
                         <AppContent />
                     </div>
                 </div>

@@ -23,32 +23,34 @@ const BentoGrid = ({ boxes, boxFontSizes, handleBoxClick }) => {
     };
 
     return (
-        <div className="flex-1 p-4" white border-l border-gray-300>
+        <div className="flex-1 p-4">
             <button 
                 onClick={handleExport} 
                 className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
             >
                 Export as JPG
             </button>
-            <div className="grid grid-cols-3 gap-4" ref={gridRef}>
+            <div className="flex flex-wrap justify-center gap-4" style={{ maxWidth: '600px' }}>
                 {boxes && boxes.length > 0 ? (
-                    boxes.map(box => (
+                    boxes.map((box, index) => (
                         <div 
                             key={box.id} 
-                            className="bg-gray-200 border border-gray-300 rounded-lg p-4 cursor-pointer" 
-                            style={{ fontSize: boxFontSizes[box.id].titleFontSize }}
+                            className={`bg-gray-200 border border-gray-300 rounded-lg p-4 cursor-pointer flex flex-col justify-center items-center text-center shadow-md hover:shadow-lg transition duration-300 ease-in-out box-${index + 1}`}
+                            style={{ 
+                                fontSize: boxFontSizes[box.id]?.titleFontSize || '1em',
+                            }}
                         >
                             <h2 
-                                style={{ fontSize: boxFontSizes[box.id].titleFontSize }} 
+                                style={{ fontSize: boxFontSizes[box.id]?.titleFontSize || '1em' }} 
                                 onClick={() => handleClick(box.id)} 
-                                className="text-lg font-bold mb-2"
+                                className="text-lg font-bold mb-2 text-blue-900 hover:text-blue-700"
                             >
                                 {box.text1}
                             </h2>
                             <p 
-                                style={{ fontSize: boxFontSizes[box.id].descriptionFontSize }} 
+                                style={{ fontSize: boxFontSizes[box.id]?.descriptionFontSize || '1em' }} 
                                 onClick={() => handleClick(box.id)} 
-                                className="text-base"
+                                className="text-base text-gray-700 hover:text-gray-900"
                             >
                                 {box.text2}
                             </p>
@@ -61,5 +63,4 @@ const BentoGrid = ({ boxes, boxFontSizes, handleBoxClick }) => {
         </div>
     );
 };
-
 export default BentoGrid;
